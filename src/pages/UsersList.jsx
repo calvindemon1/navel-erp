@@ -11,16 +11,37 @@ export default function UsersList() {
   const [users, setUsers] = createSignal([]);
 
   const handleDelete = async (id) => {
-    if (confirm("Hapus user ini?")) {
-      // setUsers(users().filter((u) => u.id !== id));
+    const result = await Swal.fire({
+      title: "Hapus Pengguna?",
+      text: `Apakah kamu yakin ingin menghapus pengguna dengan ID ${id}?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#aaa",
+      confirmButtonText: "Ya, hapus",
+      cancelButtonText: "Batal",
+    });
+
+    if (result.isConfirmed) {
       try {
         const deleteUser = await softDeleteUser(id, user?.token);
-
         console.log(deleteUser);
+
+        // Optional: tampilkan alert sukses
+        await Swal.fire({
+          title: "Terhapus!",
+          text: `Data pengguna dengan ID ${id} berhasil dihapus.`,
+          icon: "success",
+          confirmButtonColor: "#6496df",
+        });
+
+        // Optional: update UI setelah hapus
+        setUsers(users().filter((u) => u.id !== id));
       } catch (error) {
         Swal.fire({
           title: "Gagal",
-          text: `Gagal menghhapus data pengguna dengan id ${id}`,
+          text: `Gagal menghapus data pengguna dengan ID ${id}`,
+          icon: "error",
           confirmButtonColor: "#6496df",
           confirmButtonText: "OK",
         });
