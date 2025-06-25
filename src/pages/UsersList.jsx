@@ -1,20 +1,53 @@
-import { createSignal } from "solid-js";
+import { createEffect, createSignal, onMount } from "solid-js";
 import { useNavigate } from "@solidjs/router";
 import MainLayout from "../layouts/MainLayout";
+import { getAllUsers, getUser, softDeleteUser } from "../utils/auth";
+import Swal from "sweetalert2";
 
 export default function UsersList() {
   const navigate = useNavigate();
+  const user = getUser();
 
-  const [users, setUsers] = createSignal([
-    { id: 1, username: "admin", role: "PPN" },
-    { id: 2, username: "staff", role: "Non-PPN" },
-  ]);
+  const [users, setUsers] = createSignal([]);
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     if (confirm("Hapus user ini?")) {
-      setUsers(users().filter((u) => u.id !== id));
+      // setUsers(users().filter((u) => u.id !== id));
+      try {
+        const deleteUser = await softDeleteUser(id, user?.token);
+
+        console.log(deleteUser);
+      } catch (error) {
+        Swal.fire({
+          title: "Gagal",
+          text: `Gagal menghhapus data pengguna dengan id ${id}`,
+          confirmButtonColor: "#6496df",
+          confirmButtonText: "OK",
+        });
+      }
     }
   };
+
+  const handleGetAllUsers = async () => {
+    try {
+      const users = await getAllUsers(user?.token);
+
+      setUsers(users);
+    } catch (error) {
+      Swal.fire({
+        title: "Gagal",
+        text: "Gagal mengambil seluruh data pengguna",
+        confirmButtonColor: "#6496df",
+        confirmButtonText: "OK",
+      });
+    }
+  };
+
+  createEffect(() => {
+    if (user?.token) {
+      handleGetAllUsers();
+    }
+  });
 
   return (
     <MainLayout>
@@ -32,8 +65,10 @@ export default function UsersList() {
         <thead class="bg-gray-200 text-sm uppercase text-gray-700">
           <tr>
             <th class="py-2 px-4">ID</th>
+            <th class="py-2 px-4">Name</th>
             <th class="py-2 px-4">Username</th>
             <th class="py-2 px-4">Role</th>
+            <th class="py-2 px-4">Tanggal Pembuatan</th>
             <th class="py-2 px-4">Aksi</th>
           </tr>
         </thead>
@@ -41,8 +76,16 @@ export default function UsersList() {
           {users().map((user) => (
             <tr class="border-b" key={user.id}>
               <td class="py-2 px-4">{user.id}</td>
-              <td class="py-2 px-4">{user.username}</td>
-              <td class="py-2 px-4">{user.role}</td>
+              <td class="py-2 px-4 capitalize">{user.name}</td>
+              <td class="py-2 px-4 capitalize">{user.username}</td>
+              <td class="py-2 px-4 capitalize">{user.role_name}</td>
+              <td class="py-2 px-4">
+                {new Date(user.created_at).toLocaleDateString("id-ID", {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                })}
+              </td>
               <td class="py-2 px-4 space-x-2">
                 <button
                   class="text-blue-600 hover:underline"

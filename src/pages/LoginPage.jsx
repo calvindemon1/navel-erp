@@ -1,6 +1,7 @@
 import { createSignal } from "solid-js";
 import { useNavigate } from "@solidjs/router";
 import { login } from "../utils/auth";
+import Swal from "sweetalert2";
 
 export default function LoginPage() {
   const [username, setUsername] = createSignal("");
@@ -8,12 +9,34 @@ export default function LoginPage() {
   const [error, setError] = createSignal("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    const user = login(username(), password());
-    if (user) {
-      navigate("/dashboard", { replace: true });
-    } else {
-      setError("Username atau password salah");
+  const handleLogin = async () => {
+    // const user = await login(username(), password());
+    // console.log(user);
+    // if (user) {
+    //   // navigate("/dashboard", { replace: true });
+    // } else {
+    //   setError("Username atau password salah");
+    // }
+
+    try {
+      const user = await login(username(), password());
+
+      Swal.fire({
+        title: "Berhasil Login!",
+        icon: "success",
+        confirmButtonColor: "#6496df",
+        confirmButtonText: "OK",
+      }).then(navigate("/dashboard", { replace: true }));
+    } catch (error) {
+      Swal.fire({
+        title: "Gagal!",
+        icon: "error",
+        text: "Username atau password salah",
+        confirmButtonColor: "#6496df",
+        confirmButtonText: "OK",
+      });
+
+      setError(error.message || "Username atau password salah.");
     }
   };
 
