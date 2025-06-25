@@ -1,8 +1,8 @@
 import MainLayout from "../layouts/MainLayout";
-import { getUser } from "../utils/auth";
+// import { getUser } from "../utils/auth";
 
 export default function Dashboard() {
-  const user = getUser();
+  // const user = getUser();
 
   const stats = [
     { title: "Pesanan", value: 128 },
@@ -15,11 +15,11 @@ export default function Dashboard() {
     <MainLayout>
       <h1 class="text-2xl font-bold mb-4">Dashboard</h1>
 
-      <p class="mb-2">
+      {/* <p class="mb-2">
         Anda login sebagai <strong>{user.role.toUpperCase()}</strong>.
-      </p>
+      </p> */}
 
-      {user.role === "ppn" ? (
+      {/* {user.role === "ppn" ? (
         <div class="mb-6 p-4 bg-green-100 border border-green-300 rounded">
           <p>
             Ini konten khusus untuk pengguna <strong>PPN</strong>
@@ -31,7 +31,7 @@ export default function Dashboard() {
             Ini konten khusus untuk pengguna <strong>Non-PPN</strong>
           </p>
         </div>
-      )}
+      )} */}
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat) => (

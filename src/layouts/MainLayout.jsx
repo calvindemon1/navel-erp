@@ -53,14 +53,12 @@ export default function MainLayout(props) {
 
       {/* Main Content */}
       <div class="flex-1 flex flex-col">
-        {/* Navbar */}
         <header class="bg-white shadow p-4 flex justify-between">
           <div>
-            Selamat datang, {user?.username} ({user?.role.toUpperCase()})
+            Selamat datang, {user?.name} ({user?.username.toUpperCase()})
           </div>
         </header>
 
-        {/* Content */}
         <main class="p-6 bg-gray-100 flex-1 overflow-y-auto">
           {props.children}
         </main>
