@@ -12,12 +12,12 @@ import { users } from "../data/users";
 //   }
 // }
 
-// LOGIN AND REGISTER
+// LOGIN, REGISTER AND REGISTER
 
 export async function login(username, password) {
   try {
     const response = await fetch(
-      "https://4477-2404-8000-1024-7a86-64d7-244e-9d30-1bc6.ngrok-free.app/api/login",
+      "https://8635-2404-8000-1024-7a86-15e5-1937-db5a-7ac8.ngrok-free.app/api/login",
       {
         method: "POST",
         headers: {
@@ -44,7 +44,7 @@ export async function login(username, password) {
 export async function register(name, username, password, role_id, token) {
   try {
     const response = await fetch(
-      "https://4477-2404-8000-1024-7a86-64d7-244e-9d30-1bc6.ngrok-free.app/api/register",
+      "https://8635-2404-8000-1024-7a86-15e5-1937-db5a-7ac8.ngrok-free.app/api/register",
       {
         method: "POST",
         headers: {
@@ -58,20 +58,50 @@ export async function register(name, username, password, role_id, token) {
 
     const data = await response.json();
 
-    console.log(data);
+    if (!response.ok) {
+      throw new Error(data.message || "Registrasi gagal");
+    }
+
+    return data;
   } catch (error) {
     throw error;
   }
 }
 
-// LOGIN AND REGISTER
+export async function getTokenStatus(token) {
+  try {
+    const response = await fetch(
+      "https://8635-2404-8000-1024-7a86-15e5-1937-db5a-7ac8.ngrok-free.app/api/token-status",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-value",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Gagal mengambil status token");
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// LOGIN, REGISTER AND REGISTER
 
 // USERS FUNCTION
 
 export async function getAllUsers(token) {
   try {
     const response = await fetch(
-      "https://4477-2404-8000-1024-7a86-64d7-244e-9d30-1bc6.ngrok-free.app/api/users",
+      "https://8635-2404-8000-1024-7a86-15e5-1937-db5a-7ac8.ngrok-free.app/api/users",
       {
         method: "GET",
         headers: {
@@ -98,7 +128,7 @@ export async function getAllUsers(token) {
 export async function softDeleteUser(userId, token) {
   try {
     const response = await fetch(
-      `https://4477-2404-8000-1024-7a86-64d7-244e-9d30-1bc6.ngrok-free.app/api/delete-user/${userId}`,
+      `https://8635-2404-8000-1024-7a86-15e5-1937-db5a-7ac8.ngrok-free.app/api/delete-user/${userId}`,
       {
         method: "DELETE",
         headers: {

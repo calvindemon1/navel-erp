@@ -21,10 +21,10 @@ export default function UserForm() {
     if (isEdit) {
       setForm({
         id: params.id,
-        name: "test",
-        username: "edituser",
-        password: "test",
-        role: "Non-PPN",
+        name: params.name,
+        username: params.username,
+        password: params.password,
+        role: params.role,
       });
     }
   });

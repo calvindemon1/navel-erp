@@ -1,9 +1,24 @@
-import { getUser, logout } from "../utils/auth";
+import { createEffect, onCleanup } from "solid-js";
+import { getTokenStatus, getUser, logout } from "../utils/auth";
 import { A, useNavigate } from "@solidjs/router";
 
 export default function MainLayout(props) {
   const user = getUser();
   const navigate = useNavigate();
+  const tokUser = getUser();
+
+  createEffect(() => {
+    const interval = setInterval(async () => {
+      try {
+        const result = await getTokenStatus(tokUser?.token);
+        console.log("Message token:", result);
+      } catch (error) {
+        console.error("Token check failed:", error.message);
+      }
+    }, 600000);
+
+    onCleanup(() => clearInterval(interval));
+  });
 
   const handleLogout = () => {
     logout();
