@@ -10,6 +10,8 @@ import UsersList from "./pages/UsersList";
 import UserForm from "./pages/UserForm";
 import TransactionsList from "./pages/TransactionsList";
 import TransactionForm from "./pages/TransactionForm";
+import SuppliersList from "./pages/SuppliersList";
+import SuppliersListForm from "./pages/SuppliersListForm";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/orders" component={OrdersList} />
       <Route path="/orders/form" component={OrderForm} />
+      <Route path="/suppliers" component={SuppliersList} />
+      <Route path="/suppliers/form" component={SuppliersListForm} />
       <Route path="/customers" component={CustomerList} />
       <Route path="/customers/form" component={CustomerForm} />
       <Route path="/transactions" component={TransactionsList} />

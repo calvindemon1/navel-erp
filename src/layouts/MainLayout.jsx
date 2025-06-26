@@ -1,11 +1,13 @@
-import { createEffect, onCleanup } from "solid-js";
+import { createEffect, createSignal, onCleanup } from "solid-js";
 import { getTokenStatus, getUser, logout } from "../utils/auth";
-import { A, useNavigate } from "@solidjs/router";
+import { A, useLocation, useNavigate } from "@solidjs/router";
 
 export default function MainLayout(props) {
   const user = getUser();
   const navigate = useNavigate();
   const tokUser = getUser();
+  const location = useLocation();
+  const [isOpen, setIsOpen] = createSignal(false);
 
   createEffect(() => {
     const interval = setInterval(async () => {
@@ -16,6 +18,19 @@ export default function MainLayout(props) {
         console.error("Token check failed:", error.message);
       }
     }, 600000);
+
+    const inMaster =
+      location.pathname.startsWith("/dashboard") ||
+      location.pathname.startsWith("/orders") ||
+      location.pathname.startsWith("/transactions") ||
+      location.pathname.startsWith("/users") ||
+      location.pathname.startsWith("/customers") ||
+      location.pathname.startsWith("/suppliers") ||
+      location.pathname.startsWith("/users");
+
+    if (inMaster) {
+      setIsOpen(true);
+    }
 
     onCleanup(() => clearInterval(interval));
   });
@@ -33,29 +48,95 @@ export default function MainLayout(props) {
         <nav class="flex-1">
           <ul>
             <li>
-              <A href="/dashboard" class="block p-4 hover:bg-gray-700">
+              <A
+                href="/dashboard"
+                class={`block p-4 hover:bg-gray-700 ${
+                  location.pathname === "/dashboard"
+                    ? "bg-gray-700 text-white"
+                    : ""
+                }`}
+              >
                 Dashboard
               </A>
             </li>
             <li>
-              <A href="/orders" class="block p-4 hover:bg-gray-700">
+              <A
+                href="/orders"
+                class={`block p-4 hover:bg-gray-700 ${
+                  location.pathname === "/orders"
+                    ? "bg-gray-700 text-white"
+                    : ""
+                }`}
+              >
                 Pesanan
               </A>
             </li>
             <li>
-              <A href="/customers" class="block p-4 hover:bg-gray-700">
-                Customer
-              </A>
-            </li>
-            <li>
-              <A href="/transactions" class="block p-4 hover:bg-gray-700">
+              <A
+                href="/transactions"
+                class={`block p-4 hover:bg-gray-700 ${
+                  location.pathname === "/transactions"
+                    ? "bg-gray-700 text-white"
+                    : ""
+                }`}
+              >
                 Transaksi
               </A>
             </li>
             <li>
-              <A href="/users" class="block p-4 hover:bg-gray-700">
+              <A
+                href="/users"
+                class={`block p-4 hover:bg-gray-700 ${
+                  location.pathname === "/users" ? "bg-gray-700 text-white" : ""
+                }`}
+              >
                 Users
               </A>
+            </li>
+
+            {/* Master Data Toggle */}
+            <li>
+              <button
+                class="w-full text-left p-4 font-semibold text-gray-400 uppercase hover:bg-gray-700 flex justify-between items-center"
+                onClick={() => setIsOpen(!isOpen())}
+              >
+                Master Data
+                <span class="text-xs">{isOpen() ? "▲" : "▼"}</span>
+              </button>
+            </li>
+
+            {/* Submenu with smooth transition */}
+            <li
+              class={`transition-all duration-300 ease-in-out overflow-hidden ${
+                isOpen() ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
+              }`}
+            >
+              <ul>
+                <li>
+                  <A
+                    href="/suppliers"
+                    class={`block pl-8 pr-4 py-2 hover:bg-gray-700 ${
+                      location.pathname === "/suppliers"
+                        ? "bg-gray-700 text-white"
+                        : ""
+                    }`}
+                  >
+                    Suppliers
+                  </A>
+                </li>
+                <li>
+                  <A
+                    href="/customers"
+                    class={`block pl-8 pr-4 py-2 hover:bg-gray-700 ${
+                      location.pathname === "/customers"
+                        ? "bg-gray-700 text-white"
+                        : ""
+                    }`}
+                  >
+                    Customer
+                  </A>
+                </li>
+              </ul>
             </li>
           </ul>
         </nav>

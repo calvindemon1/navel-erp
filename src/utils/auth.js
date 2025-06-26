@@ -160,6 +160,176 @@ export function getUser() {
 
 // USERS FUNCTION
 
+// SUPPLIERS FUNCTION
+
+export async function createSupplier(
+  token,
+  kode,
+  alias,
+  nama,
+  no_telp,
+  no_hp,
+  alamat
+) {
+  try {
+    const response = await fetch(
+      `https://8635-2404-8000-1024-7a86-15e5-1937-db5a-7ac8.ngrok-free.app/api/create-supplier`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-value",
+        },
+        body: {
+          kode: kode,
+          alias: alias,
+          nama: nama,
+          no_telp: no_telp,
+          no_hp: no_hp,
+          alamat: alamat,
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Gagal membuat data supplier");
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getAllSuppliers(token) {
+  try {
+    const response = await fetch(
+      `https://8635-2404-8000-1024-7a86-15e5-1937-db5a-7ac8.ngrok-free.app/api/suppliers`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-value",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Gagal mengambil data supplier");
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getSupplier(id, token) {
+  try {
+    const response = await fetch(
+      `https://8635-2404-8000-1024-7a86-15e5-1937-db5a-7ac8.ngrok-free.app/api/suppliers/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-type",
+        },
+      }
+    );
+
+    const data = response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.message || `Gagal mengambil supplier dengan id: ${id}`
+      );
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function updateDataSupplier(
+  token,
+  kode,
+  alias,
+  nama,
+  no_telp,
+  no_hp,
+  alamat
+) {
+  try {
+    const response = await fetch(
+      `https://8635-2404-8000-1024-7a86-15e5-1937-db5a-7ac8.ngrok-free.app/api/update-supplier`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-value",
+        },
+        body: {
+          kode: kode,
+          alias: alias,
+          nama: nama,
+          no_telp: no_telp,
+          no_hp: no_hp,
+          alamat: alamat,
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Gagal mengubah data supplier");
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function softDeleteSupplier(id, token) {
+  try {
+    const response = await fetch(
+      `https://8635-2404-8000-1024-7a86-15e5-1937-db5a-7ac8.ngrok-free.app/api/delete-supplier/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-type",
+        },
+      }
+    );
+
+    const data = response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.message || `Gagal menghapus data supplier dengan id: ${id}`
+      );
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// SUPPLIERS FUNCTION
+
 export function logout() {
   localStorage.removeItem("user");
 }
