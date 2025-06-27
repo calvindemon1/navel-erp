@@ -181,14 +181,14 @@ export async function createSupplier(
           Authorization: `Bearer ${token}`,
           "ngrok-skip-browser-warning": "any-value",
         },
-        body: {
+        body: JSON.stringify({
           kode: kode,
           alias: alias,
           nama: nama,
           no_telp: no_telp,
           no_hp: no_hp,
           alamat: alamat,
-        },
+        }),
       }
     );
 
@@ -260,6 +260,7 @@ export async function getSupplier(id, token) {
 
 export async function updateDataSupplier(
   token,
+  id,
   kode,
   alias,
   nama,
@@ -269,7 +270,7 @@ export async function updateDataSupplier(
 ) {
   try {
     const response = await fetch(
-      `https://8635-2404-8000-1024-7a86-15e5-1937-db5a-7ac8.ngrok-free.app/api/update-supplier`,
+      `https://8635-2404-8000-1024-7a86-15e5-1937-db5a-7ac8.ngrok-free.app/api/update-supplier/${id}`,
       {
         method: "PUT",
         headers: {
@@ -277,14 +278,14 @@ export async function updateDataSupplier(
           Authorization: `Bearer ${token}`,
           "ngrok-skip-browser-warning": "any-value",
         },
-        body: {
+        body: JSON.stringify({
           kode: kode,
           alias: alias,
           nama: nama,
           no_telp: no_telp,
           no_hp: no_hp,
           alamat: alamat,
-        },
+        }),
       }
     );
 
@@ -314,7 +315,7 @@ export async function softDeleteSupplier(id, token) {
       }
     );
 
-    const data = response.json();
+    const data = await response.json();
 
     if (!response.ok) {
       throw new Error(
