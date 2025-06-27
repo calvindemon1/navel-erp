@@ -582,6 +582,146 @@ export async function softDeleteCustomer(id, token) {
 
 // CUSTOMERS FUNCTION
 
+// CUSTOMERS FUNCTION
+
+export async function createColor(token, kode, jenis) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/create-warna`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-value",
+        },
+        body: JSON.stringify({ kode: kode, jenis: jenis }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Gagal membuat data warna");
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getAllColors(token) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/warna`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-value",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Gagal mengambil data supplier");
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getColor(id, token) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/warna/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-type",
+        },
+      }
+    );
+
+    const data = response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.message || `Gagal mengambil supplier dengan id: ${id}`
+      );
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function updateDataColor(token, id, kode, jenis) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/update-warna/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-value",
+        },
+        body: JSON.stringify({ kode: kode, jenis: jenis }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Gagal mengubah data supplier");
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function softDeleteColor(id, token) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/delete-warna/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-type",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.message || `Gagal menghapus data supplier dengan id: ${id}`
+      );
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// CUSTOMERS FUNCTION
+
 export function logout() {
   localStorage.removeItem("user");
 }

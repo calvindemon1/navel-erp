@@ -12,22 +12,37 @@ import TransactionsList from "./pages/TransactionsList";
 import TransactionForm from "./pages/TransactionForm";
 import SuppliersList from "./pages/SuppliersList";
 import SuppliersListForm from "./pages/SuppliersListForm";
+import ColorsList from "./pages/ColorsList";
+import ColorForm from "./pages/ColorForm";
+import FabricsList from "./pages/FabricsList";
+import FabricForm from "./pages/FabricForm";
 
 function App() {
   return (
     <Router>
       <Route path="/" component={LoginPage} />
       <Route path="/dashboard" component={Dashboard} />
+
       <Route path="/orders" component={OrdersList} />
       <Route path="/orders/form" component={OrderForm} />
-      <Route path="/suppliers" component={SuppliersList} />
-      <Route path="/suppliers/form" component={SuppliersListForm} />
-      <Route path="/customers" component={CustomerList} />
-      <Route path="/customers/form" component={CustomerForm} />
+
       <Route path="/transactions" component={TransactionsList} />
       <Route path="/transactions/form" component={TransactionForm} />
+
       <Route path="/users" component={UsersList} />
       <Route path="/users/form" component={UserForm} />
+
+      <Route path="/suppliers" component={SuppliersList} />
+      <Route path="/suppliers/form" component={SuppliersListForm} />
+
+      <Route path="/customers" component={CustomerList} />
+      <Route path="/customers/form" component={CustomerForm} />
+
+      <Route path="/colors" component={ColorsList} />
+      <Route path="/colors/form" component={ColorForm} />
+
+      <Route path="/fabrics" component={FabricsList} />
+      <Route path="/fabrics/form" component={FabricForm} />
     </Router>
   );
 }

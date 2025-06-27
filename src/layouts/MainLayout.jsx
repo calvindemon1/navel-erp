@@ -24,9 +24,11 @@ export default function MainLayout(props) {
       location.pathname.startsWith("/orders") ||
       location.pathname.startsWith("/transactions") ||
       location.pathname.startsWith("/users") ||
+      location.pathname.startsWith("/users") ||
       location.pathname.startsWith("/customers") ||
       location.pathname.startsWith("/suppliers") ||
-      location.pathname.startsWith("/users");
+      location.pathname.startsWith("/colors") ||
+      location.pathname.startsWith("/fabrics");
 
     if (inMaster) {
       setIsOpen(true);
@@ -134,6 +136,30 @@ export default function MainLayout(props) {
                     }`}
                   >
                     Customer
+                  </A>
+                </li>
+                <li>
+                  <A
+                    href="/colors"
+                    class={`block pl-8 pr-4 py-2 hover:bg-gray-700 ${
+                      location.pathname === "/colors"
+                        ? "bg-gray-700 text-white"
+                        : ""
+                    }`}
+                  >
+                    Warna
+                  </A>
+                </li>
+                <li>
+                  <A
+                    href="/fabrics"
+                    class={`block pl-8 pr-4 py-2 hover:bg-gray-700 ${
+                      location.pathname === "/fabrics"
+                        ? "bg-gray-700 text-white"
+                        : ""
+                    }`}
+                  >
+                    Kain
                   </A>
                 </li>
               </ul>
