@@ -1,12 +1,12 @@
 import { createSignal, onMount } from "solid-js";
 import { useNavigate, useSearchParams } from "@solidjs/router";
-import MainLayout from "../layouts/MainLayout";
+import MainLayout from "../../layouts/MainLayout";
 import {
   createFabric,
   getFabric,
   getUser,
   updateDataFabric,
-} from "../utils/auth";
+} from "../../utils/auth";
 import Swal from "sweetalert2";
 
 export default function FabricForm() {

@@ -1,18 +1,21 @@
 import { createSignal, onMount } from "solid-js";
 import { useNavigate, useSearchParams } from "@solidjs/router";
-import MainLayout from "../layouts/MainLayout";
+import MainLayout from "../../layouts/MainLayout";
 import {
-  createCurrencies,
-  getCurrencies,
+  createColor,
+  createSOType,
+  getColor,
+  getSOType,
   getUser,
-  updateDataCurrencies,
-} from "../utils/auth";
+  updateDataColor,
+  updateDataSOType,
+} from "../../utils/auth";
 import Swal from "sweetalert2";
 
-export default function CurrencyForm() {
+export default function SOTypeForm() {
   const [form, setForm] = createSignal({
     id: "",
-    name: "",
+    jenis: "",
   });
   const [params] = useSearchParams();
   const isEdit = !!params.id;
@@ -21,10 +24,10 @@ export default function CurrencyForm() {
 
   onMount(async () => {
     if (isEdit) {
-      const currencies = await getCurrencies(params.id, user?.token);
+      const soType = await getSOType(params.id, user?.token);
       setForm({
         id: params.id,
-        name: currencies.name,
+        jenis: soType.jenis,
       });
     }
   });
@@ -34,27 +37,28 @@ export default function CurrencyForm() {
 
     try {
       if (isEdit) {
-        await updateDataCurrencies(user?.token, params.id, form().name);
+        await updateDataSOType(user?.token, params.id, form().jenis);
       } else {
-        await createCurrencies(user?.token, form().name);
+        await createSOType(user?.token, form().jenis);
       }
 
       Swal.fire({
         icon: "success",
         title: "Berhasil",
         text: isEdit
-          ? "Berhasil mengubah data jenis currency"
-          : "Berhasil mebuat jenis currency baru",
+          ? "Berhasil mengubah data jenis SO"
+          : "Berhasil mebuat jenis SO baru",
         confirmButtonColor: "#6496df",
         confirmButtonText: "OK",
-      }).then(() => navigate("/currencies"));
+      }).then(() => navigate("/so-type"));
     } catch (error) {
+      console.log(error);
       Swal.fire({
         icon: "error",
         title: "Gagal",
         text: isEdit
-          ? "Gagal mengubah data jenis currency"
-          : "Gagal membuat data jenis currency baru",
+          ? "Gagal mengubah data jenis SO"
+          : "Gagal membuat data jenis SO baru",
         confirmButtonColor: "#6496df",
         confirmButtonText: "OK",
       });
@@ -64,16 +68,16 @@ export default function CurrencyForm() {
   return (
     <MainLayout>
       <h1 class="text-2xl font-bold mb-4">
-        {isEdit ? "Edit" : "Tambah"} Currency
+        {isEdit ? "Edit" : "Tambah"} Jenis SO
       </h1>
       <form class="space-y-4 max-w-lg" onSubmit={handleSubmit}>
         <div>
-          <label class="block mb-1 font-medium">Nama</label>
+          <label class="block mb-1 font-medium">Jenis</label>
           <input
             type="text"
             class="w-full border p-2 rounded"
-            value={form().name}
-            onInput={(e) => setForm({ ...form(), name: e.target.value })}
+            value={form().jenis}
+            onInput={(e) => setForm({ ...form(), jenis: e.target.value })}
             required
           />
         </div>

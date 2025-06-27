@@ -3,25 +3,25 @@ import LoginPage from "./pages/LoginPage";
 import Dashboard from "./pages/Dashboard";
 import OrdersList from "./pages/OrdersList";
 import OrderForm from "./pages/OrderForm";
-import CustomerList from "./pages/CustomersList";
-import CustomerForm from "./pages/CustomerForm";
-import UserList from "./pages/UsersList";
 import UsersList from "./pages/UsersList";
 import UserForm from "./pages/UserForm";
 import TransactionsList from "./pages/TransactionsList";
 import TransactionForm from "./pages/TransactionForm";
-import SuppliersList from "./pages/SuppliersList";
-import SuppliersListForm from "./pages/SuppliersListForm";
-import ColorsList from "./pages/ColorsList";
-import ColorForm from "./pages/ColorForm";
-import FabricsList from "./pages/FabricsList";
-import FabricForm from "./pages/FabricForm";
-import SOTypesList from "./pages/SOTypesList";
-import SOTypeForm from "./pages/SOTypeForm";
-import CustomerTypesList from "./pages/CustomerTypesList";
-import CustomerTypeForm from "./pages/CustomerTypeForm";
-import CurrenciesList from "./pages/CurrenciesList";
-import CurrencyForm from "./pages/CurrencyForm";
+// MASTER DATA
+import CustomerList from "./pages/master_data/CustomersList";
+import CustomerForm from "./pages/master_data/CustomerForm";
+import SuppliersList from "./pages/master_data/SuppliersList";
+import SuppliersListForm from "./pages/master_data/SuppliersListForm";
+import ColorsList from "./pages/master_data/ColorsList";
+import ColorForm from "./pages/master_data/ColorForm";
+import FabricsList from "./pages/master_data/FabricsList";
+import FabricForm from "./pages/master_data/FabricForm";
+import SOTypesList from "./pages/master_data/SOTypesList";
+import SOTypeForm from "./pages/master_data/SOTypeForm";
+import CustomerTypesList from "./pages/master_data/CustomerTypesList";
+import CustomerTypeForm from "./pages/master_data/CustomerTypeForm";
+import CurrenciesList from "./pages/master_data/CurrenciesList";
+import CurrencyForm from "./pages/master_data/CurrencyForm";
 
 function App() {
   return (

@@ -1,19 +1,19 @@
 import { createEffect, createSignal } from "solid-js";
 import { useNavigate } from "@solidjs/router";
-import MainLayout from "../layouts/MainLayout";
-import { getAllCustomers, getUser, softDeleteCustomer } from "../utils/auth";
+import MainLayout from "../../layouts/MainLayout";
+import { getAllSuppliers, getUser, softDeleteSupplier } from "../../utils/auth";
 import Swal from "sweetalert2";
 
-export default function CustomerList() {
+export default function SuppliersList() {
   const navigate = useNavigate();
   const tokUser = getUser();
 
-  const [customers, setCustomers] = createSignal([]);
+  const [suppliers, setSuppliers] = createSignal([]);
 
   const handleDelete = async (id) => {
     const result = await Swal.fire({
-      title: "Hapus customer?",
-      text: `Apakah kamu yakin ingin menghapus customer dengan ID ${id}?`,
+      title: "Hapus supplier?",
+      text: `Apakah kamu yakin ingin menghapus supplier dengan ID ${id}?`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
@@ -24,23 +24,23 @@ export default function CustomerList() {
 
     if (result.isConfirmed) {
       try {
-        const deleteCustomer = await softDeleteCustomer(id, tokUser?.token);
+        const deleteSupplier = await softDeleteSupplier(id, tokUser?.token);
 
         await Swal.fire({
           title: "Terhapus!",
-          text: `Data customer dengan ID ${id} berhasil dihapus.`,
+          text: `Data supplier dengan ID ${id} berhasil dihapus.`,
           icon: "success",
           confirmButtonColor: "#6496df",
         });
 
         // Optional: update UI setelah hapus
-        setCustomers(customers().filter((s) => s.id !== id));
+        setSuppliers(suppliers().filter((s) => s.id !== id));
       } catch (error) {
         console.error(error);
         Swal.fire({
           title: "Gagal",
           text:
-            error.message || `Gagal menghapus data customer dengan ID ${id}`,
+            error.message || `Gagal menghapus data supplier dengan ID ${id}`,
           icon: "error",
           confirmButtonColor: "#6496df",
           confirmButtonText: "OK",
@@ -49,10 +49,10 @@ export default function CustomerList() {
     }
   };
 
-  const handleGetAllCustomers = async (tok) => {
-    const getDataCustomers = await getAllCustomers(tok);
+  const handleGetAllSuppliers = async (tok) => {
+    const getDataSuppliers = await getAllSuppliers(tok);
 
-    setCustomers(getDataCustomers);
+    setSuppliers(getDataSuppliers);
   };
 
   function formatPhoneNumber(phone) {
@@ -67,18 +67,18 @@ export default function CustomerList() {
 
   createEffect(() => {
     if (tokUser?.token) {
-      handleGetAllCustomers(tokUser?.token);
+      handleGetAllSuppliers(tokUser?.token);
     }
   });
   return (
     <MainLayout>
       <div class="flex justify-between items-center mb-4">
-        <h1 class="text-2xl font-bold">Daftar Customer</h1>
+        <h1 class="text-2xl font-bold">Daftar Supplier</h1>
         <button
           class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-          onClick={() => navigate("/customers/form")}
+          onClick={() => navigate("/suppliers/form")}
         >
-          + Tambah Customer
+          + Tambah Supplier
         </button>
       </div>
 
@@ -87,47 +87,35 @@ export default function CustomerList() {
           <thead>
             <tr class="bg-gray-200 text-left text-sm uppercase text-gray-700">
               <th class="py-2 px-4">ID</th>
-              <th class="py-2 px-2">Kode Customer</th>
-              <th class="py-2 px-2">Alias</th>
-              <th class="py-2 px-2">Nama</th>
-              <th class="py-2 px-2">Tipe Customer</th>
+              <th class="py-2 px-4">Kode Supplier</th>
+              <th class="py-2 px-4">Alias</th>
+              <th class="py-2 px-4">Nama</th>
               <th class="py-2 px-4">No Telp</th>
               <th class="py-2 px-4">No HP</th>
               <th class="py-2 px-4">Alamat</th>
-              <th class="py-2 px-4">Termin</th>
-              <th class="py-2 px-4">Limit Kredit</th>
               <th class="py-2 px-4">Aksi</th>
             </tr>
           </thead>
           <tbody>
-            {customers().map((cust) => (
-              <tr class="border-b" key={cust.id}>
-                <td class="py-2 px-4">{cust.id}</td>
-                <td class="py-2 px-4">{cust.kode}</td>
-                <td class="py-2 px-4">{cust.alias}</td>
-                <td class="py-2 px-4">{cust.nama}</td>
-                <td class="py-2 px-4">{cust.customer_type_id}</td>
-                <td class="py-2 px-4">{formatPhoneNumber(cust.no_telp)}</td>
-                <td class="py-2 px-4">{cust.no_hp}</td>
-                <td class="py-2 px-4">{cust.alamat}</td>
-                <td class="py-2 px-4">{cust.termin}</td>
-                <td class="py-2 px-4">
-                  {new Intl.NumberFormat("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                    minimumFractionDigits: 0,
-                  }).format(cust.limit_kredit || 0)}
-                </td>
+            {suppliers().map((supp) => (
+              <tr class="border-b" key={supp.id}>
+                <td class="py-2 px-4">{supp.id}</td>
+                <td class="py-2 px-4">{supp.kode}</td>
+                <td class="py-2 px-4">{supp.alias}</td>
+                <td class="py-2 px-4">{supp.nama}</td>
+                <td class="py-2 px-4">{formatPhoneNumber(supp.no_telp)}</td>
+                <td class="py-2 px-4">{supp.no_hp}</td>
+                <td class="py-2 px-4">{supp.alamat}</td>
                 <td class="py-2 px-4 space-x-2">
                   <button
                     class="text-blue-600 hover:underline"
-                    onClick={() => navigate(`/customers/form?id=${cust.id}`)}
+                    onClick={() => navigate(`/suppliers/form?id=${supp.id}`)}
                   >
                     Edit
                   </button>
                   <button
                     class="text-red-600 hover:underline"
-                    onClick={() => handleDelete(cust.id)}
+                    onClick={() => handleDelete(supp.id)}
                   >
                     Hapus
                   </button>

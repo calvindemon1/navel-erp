@@ -1,19 +1,23 @@
 import { createEffect, createSignal } from "solid-js";
 import { useNavigate } from "@solidjs/router";
-import MainLayout from "../layouts/MainLayout";
-import { getAllSOTypes, getUser, softDeleteSOType } from "../utils/auth";
+import MainLayout from "../../layouts/MainLayout";
+import {
+  getAllCurrenciess,
+  getUser,
+  softDeleteCurrencies,
+} from "../../utils/auth";
 import Swal from "sweetalert2";
 
-export default function SOTypesList() {
+export default function CurrenciesList() {
   const navigate = useNavigate();
   const tokUser = getUser();
 
-  const [soTypes, setSOTypes] = createSignal([]);
+  const [currencies, setCurrencies] = createSignal([]);
 
   const handleDelete = async (id) => {
     const result = await Swal.fire({
-      title: "Hapus jenis SO?",
-      text: `Apakah kamu yakin ingin menghapus jenis SO dengan ID ${id}?`,
+      title: "Hapus currency?",
+      text: `Apakah kamu yakin ingin menghapus currency dengan ID ${id}?`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
@@ -24,22 +28,22 @@ export default function SOTypesList() {
 
     if (result.isConfirmed) {
       try {
-        const deleteSOType = await softDeleteSOType(id, tokUser?.token);
+        const deleteSOType = await softDeleteCurrencies(id, tokUser?.token);
 
         await Swal.fire({
           title: "Terhapus!",
-          text: `Data jenis SO dengan ID ${id} berhasil dihapus.`,
+          text: `Data currency dengan ID ${id} berhasil dihapus.`,
           icon: "success",
           confirmButtonColor: "#6496df",
         });
 
         // Optional: update UI setelah hapus
-        setSOTypes(soTypes().filter((s) => s.id !== id));
+        setCurrencies(currencies().filter((s) => s.id !== id));
       } catch (error) {
         Swal.fire({
           title: "Gagal",
           text:
-            error.message || `Gagal menghapus data jenis SO dengan ID ${id}`,
+            error.message || `Gagal menghapus data currency dengan ID ${id}`,
           icon: "error",
           confirmButtonColor: "#6496df",
           confirmButtonText: "OK",
@@ -48,29 +52,29 @@ export default function SOTypesList() {
     }
   };
 
-  const handleGetAllSOTypes = async (tok) => {
-    const getDataSOTypes = await getAllSOTypes(tok);
+  const handleGetAllCurrencies = async (tok) => {
+    const getDataCurrencies = await getAllCurrenciess(tok);
 
-    setSOTypes(getDataSOTypes);
-    if (getDataSOTypes.status === 200) {
-      setSOTypes(getDataSOTypes.jenis);
+    setCurrencies(getDataCurrencies);
+    if (getDataCurrencies.status === 200) {
+      setCurrencies(getDataCurrencies.jenis);
     }
   };
 
   createEffect(() => {
     if (tokUser?.token) {
-      handleGetAllSOTypes(tokUser?.token);
+      handleGetAllCurrencies(tokUser?.token);
     }
   });
   return (
     <MainLayout>
       <div class="flex justify-between items-center mb-4">
-        <h1 class="text-2xl font-bold">Daftar Jenis SO</h1>
+        <h1 class="text-2xl font-bold">Daftar currency</h1>
         <button
           class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-          onClick={() => navigate("/so-type/form")}
+          onClick={() => navigate("/currencies/form")}
         >
-          + Tambah Jenis SO
+          + Tambah currency
         </button>
       </div>
 
@@ -79,25 +83,25 @@ export default function SOTypesList() {
           <thead>
             <tr class="bg-gray-200 text-left text-sm uppercase text-gray-700">
               <th class="py-2 px-4">ID</th>
-              <th class="py-2 px-2">Jenis</th>
+              <th class="py-2 px-2">Nama</th>
               <th class="py-2 px-2">Aksi</th>
             </tr>
           </thead>
           <tbody>
-            {soTypes().map((soType) => (
-              <tr class="border-b" key={soType.id}>
-                <td class="py-2 px-4">{soType.id}</td>
-                <td class="py-2 px-4">{soType.jenis}</td>
+            {currencies().map((curr) => (
+              <tr class="border-b" key={curr.id}>
+                <td class="py-2 px-4">{curr.id}</td>
+                <td class="py-2 px-4">{curr.name}</td>
                 <td class="py-2 px-4 space-x-2">
                   <button
                     class="text-blue-600 hover:underline"
-                    onClick={() => navigate(`/so-type/form?id=${soType.id}`)}
+                    onClick={() => navigate(`/currencies/form?id=${curr.id}`)}
                   >
                     Edit
                   </button>
                   <button
                     class="text-red-600 hover:underline"
-                    onClick={() => handleDelete(soType.id)}
+                    onClick={() => handleDelete(curr.id)}
                   >
                     Hapus
                   </button>
