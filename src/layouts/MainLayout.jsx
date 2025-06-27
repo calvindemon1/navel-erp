@@ -16,6 +16,9 @@ export default function MainLayout(props) {
         console.log("Message token:", result);
       } catch (error) {
         console.error("Token check failed:", error.message);
+        if (error.message === "Invalid or expired token.") {
+          handleLogout();
+        }
       }
     }, 600000);
 
