@@ -25,8 +25,8 @@ export default function SuppliersListForm() {
   const user = getUser();
 
   onMount(async () => {
-    const supplierData = await getSupplier(params.id, user?.token);
     if (isEdit) {
+      const supplierData = await getSupplier(params.id, user?.token);
       setForm({
         id: params.id,
         kode: supplierData.kode,
@@ -73,7 +73,7 @@ export default function SuppliersListForm() {
           : "Berhasil mebuat supplier baru",
         confirmButtonColor: "#6496df",
         confirmButtonText: "OK",
-      }).then(navigate("/suppliers"));
+      }).then(() => navigate("/suppliers"));
     } catch (error) {
       Swal.fire({
         title: "Gagal",

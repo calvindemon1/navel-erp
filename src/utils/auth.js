@@ -399,6 +399,189 @@ export async function softDeleteSupplier(id, token) {
 
 // SUPPLIERS FUNCTION
 
+// CUSTOMERS FUNCTION
+
+export async function createCustomer(
+  token,
+  kode,
+  alias,
+  nama,
+  customer_type_id,
+  no_telp,
+  no_hp,
+  alamat,
+  termin,
+  limit_kredit
+) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/create-customer`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-value",
+        },
+        body: JSON.stringify({
+          kode: kode,
+          alias: alias,
+          nama: nama,
+          customer_type_id: parseInt(customer_type_id, 10),
+          no_telp: no_telp,
+          no_hp: no_hp,
+          alamat: alamat,
+          termin: termin,
+          limit_kredit: Number(limit_kredit),
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Gagal membuat data supplier");
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getAllCustomers(token) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/customers`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-value",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Gagal mengambil data supplier");
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getCustomer(id, token) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/customers/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-type",
+        },
+      }
+    );
+
+    const data = response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.message || `Gagal mengambil supplier dengan id: ${id}`
+      );
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function updateDataCustomer(
+  token,
+  id,
+  kode,
+  alias,
+  nama,
+  customer_type_id,
+  no_telp,
+  no_hp,
+  alamat,
+  termin,
+  limit_kredit
+) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/update-customer/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-value",
+        },
+        body: JSON.stringify({
+          kode: kode,
+          alias: alias,
+          nama: nama,
+          customer_type_id: parseInt(customer_type_id, 10),
+          no_telp: no_telp,
+          no_hp: no_hp,
+          alamat: alamat,
+          termin: termin,
+          limit_kredit: Number(limit_kredit),
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Gagal mengubah data supplier");
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function softDeleteCustomer(id, token) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/delete-customer/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-type",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.message || `Gagal menghapus data supplier dengan id: ${id}`
+      );
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// CUSTOMERS FUNCTION
+
 export function logout() {
   localStorage.removeItem("user");
 }

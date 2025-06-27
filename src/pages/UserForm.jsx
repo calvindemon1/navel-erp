@@ -18,8 +18,8 @@ export default function UserForm() {
   const user = getUser();
 
   onMount(async () => {
-    const userData = await getDataUser(params.id, user?.token);
     if (isEdit) {
+      const userData = await getDataUser(params.id, user?.token);
       setForm({
         id: params.id,
         name: userData.name,
