@@ -858,6 +858,292 @@ export async function softDeleteFabric(id, token) {
 
 // FABRICS FUNCTION
 
+// #region SO TYPE FUNCTION
+
+export async function createSOType(token, jenis) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/create-jenis-so`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-value",
+        },
+        body: JSON.stringify({ jenis: jenis }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Gagal membuat data jenis so");
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getAllSOTypes(token) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/jenis-sos`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-value",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Gagal mengambil data jenis so");
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getSOType(id, token) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/jenis-so/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-type",
+        },
+      }
+    );
+
+    6;
+
+    const data = response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.message || `Gagal mengambil jenis so dengan id: ${id}`
+      );
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function updateDataSOType(token, id, jenis) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/update-jenis-so/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-value",
+        },
+        body: JSON.stringify({ jenis: jenis }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Gagal mengubah data jenis so");
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function softDeleteSOType(id, token) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/delete-jenis-so/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-type",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.message || `Gagal menghapus data jenis so dengan id: ${id}`
+      );
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// #endregion SO TYPE FUNCTION
+
+// #region CUSTOMER TYPE FUNCTION
+
+export async function createCustomerType(token, jenis) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/create-customer-type`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-value",
+        },
+        body: JSON.stringify({ jenis: jenis }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Gagal membuat data jenis so");
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getAllCustomerTypes(token) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/customer-types`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-value",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Gagal mengambil data jenis so");
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getCustomerType(id, token) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/customer-types/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-type",
+        },
+      }
+    );
+
+    6;
+
+    const data = response.json();
+
+    console.log(id, token);
+
+    if (!response.ok) {
+      throw new Error(
+        data.message || `Gagal mengambil jenis so dengan id: ${id}`
+      );
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function updateDataCustomerType(token, id, kode, jenis) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/update-customer-type/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-value",
+        },
+        body: JSON.stringify({ jenis: jenis }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Gagal mengubah data jenis so");
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function softDeleteCustomerType(id, token) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/delete-customer-type/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-type",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.message || `Gagal menghapus data jenis so dengan id: ${id}`
+      );
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// CUSTOMER TYPE FUNCTION
+
 export function logout() {
   localStorage.removeItem("user");
 }

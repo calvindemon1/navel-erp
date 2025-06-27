@@ -31,7 +31,8 @@ export default function MainLayout(props) {
       location.pathname.startsWith("/customers") ||
       location.pathname.startsWith("/suppliers") ||
       location.pathname.startsWith("/colors") ||
-      location.pathname.startsWith("/fabrics");
+      location.pathname.startsWith("/fabrics") ||
+      location.pathname.startsWith("/so-type");
 
     if (inMaster) {
       setIsOpen(true);
@@ -113,7 +114,7 @@ export default function MainLayout(props) {
             {/* Submenu with smooth transition */}
             <li
               class={`transition-all duration-300 ease-in-out overflow-hidden ${
-                isOpen() ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
+                isOpen() ? "max-h-fit opacity-100" : "max-h-0 opacity-0"
               }`}
             >
               <ul>
@@ -163,6 +164,30 @@ export default function MainLayout(props) {
                     }`}
                   >
                     Kain
+                  </A>
+                </li>
+                <li>
+                  <A
+                    href="/so-type"
+                    class={`block pl-8 pr-4 py-2 hover:bg-gray-700 ${
+                      location.pathname === "/so-type"
+                        ? "bg-gray-700 text-white"
+                        : ""
+                    }`}
+                  >
+                    Jenis SO
+                  </A>
+                </li>
+                <li>
+                  <A
+                    href="/customer-type"
+                    class={`block pl-8 pr-4 py-2 hover:bg-gray-700 ${
+                      location.pathname === "/customer-type"
+                        ? "bg-gray-700 text-white"
+                        : ""
+                    }`}
+                  >
+                    Tipe Customer
                   </A>
                 </li>
               </ul>

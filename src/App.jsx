@@ -16,6 +16,8 @@ import ColorsList from "./pages/ColorsList";
 import ColorForm from "./pages/ColorForm";
 import FabricsList from "./pages/FabricsList";
 import FabricForm from "./pages/FabricForm";
+import SOTypesList from "./pages/SOTypesList";
+import SOTypeForm from "./pages/SOTypeForm";
 
 function App() {
   return (
@@ -43,6 +45,12 @@ function App() {
 
       <Route path="/fabrics" component={FabricsList} />
       <Route path="/fabrics/form" component={FabricForm} />
+
+      <Route path="/so-type" component={SOTypesList} />
+      <Route path="/so-type/form" component={SOTypeForm} />
+
+      <Route path="/customer-type" component={FabricsList} />
+      <Route path="/customer-type/form" component={FabricForm} />
     </Router>
   );
 }
