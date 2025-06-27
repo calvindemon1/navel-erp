@@ -20,6 +20,8 @@ import SOTypesList from "./pages/SOTypesList";
 import SOTypeForm from "./pages/SOTypeForm";
 import CustomerTypesList from "./pages/CustomerTypesList";
 import CustomerTypeForm from "./pages/CustomerTypeForm";
+import CurrenciesList from "./pages/CurrenciesList";
+import CurrencyForm from "./pages/CurrencyForm";
 
 function App() {
   return (
@@ -53,6 +55,9 @@ function App() {
 
       <Route path="/customer-type" component={CustomerTypesList} />
       <Route path="/customer-type/form" component={CustomerTypeForm} />
+
+      <Route path="/currencies" component={CurrenciesList} />
+      <Route path="/currencies/form" component={CurrencyForm} />
     </Router>
   );
 }

@@ -33,7 +33,8 @@ export default function MainLayout(props) {
       location.pathname.startsWith("/colors") ||
       location.pathname.startsWith("/fabrics") ||
       location.pathname.startsWith("/so-type") ||
-      location.pathname.startsWith("/customer-type");
+      location.pathname.startsWith("/customer-type") ||
+      location.pathname.startsWith("/currencies");
 
     if (inMaster) {
       setIsOpen(true);
@@ -189,6 +190,18 @@ export default function MainLayout(props) {
                     }`}
                   >
                     Tipe Customer
+                  </A>
+                </li>
+                <li>
+                  <A
+                    href="/currencies"
+                    class={`block pl-8 pr-4 py-2 hover:bg-gray-700 ${
+                      location.pathname === "/currencies"
+                        ? "bg-gray-700 text-white"
+                        : ""
+                    }`}
+                  >
+                    Currencies
                   </A>
                 </li>
               </ul>

@@ -1140,7 +1140,7 @@ export async function softDeleteCustomerType(id, token) {
 
 // #region CURRENCIES FUNCTION
 
-export async function createCurrencies(token, nama) {
+export async function createCurrencies(token, name) {
   try {
     const response = await fetch(
       `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/create-currency`,
@@ -1151,7 +1151,7 @@ export async function createCurrencies(token, nama) {
           Authorization: `Bearer ${token}`,
           "ngrok-skip-browser-warning": "any-value",
         },
-        body: JSON.stringify({ nama: nama }),
+        body: JSON.stringify({ name: name }),
       }
     );
 
@@ -1221,7 +1221,7 @@ export async function getCurrencies(id, token) {
   }
 }
 
-export async function updateDataCurrencies(token, id, nama) {
+export async function updateDataCurrencies(token, id, name) {
   try {
     const response = await fetch(
       `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/update-currency/${id}`,
@@ -1232,7 +1232,7 @@ export async function updateDataCurrencies(token, id, nama) {
           Authorization: `Bearer ${token}`,
           "ngrok-skip-browser-warning": "any-value",
         },
-        body: JSON.stringify({ nama: nama }),
+        body: JSON.stringify({ name: name }),
       }
     );
 
