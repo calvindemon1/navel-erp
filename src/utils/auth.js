@@ -17,7 +17,7 @@ import { users } from "../data/users";
 export async function login(username, password) {
   try {
     const response = await fetch(
-      "https://8635-2404-8000-1024-7a86-15e5-1937-db5a-7ac8.ngrok-free.app/api/login",
+      "https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/login",
       {
         method: "POST",
         headers: {
@@ -44,7 +44,7 @@ export async function login(username, password) {
 export async function register(name, username, password, role_id, token) {
   try {
     const response = await fetch(
-      "https://8635-2404-8000-1024-7a86-15e5-1937-db5a-7ac8.ngrok-free.app/api/register",
+      "https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/register",
       {
         method: "POST",
         headers: {
@@ -52,9 +52,16 @@ export async function register(name, username, password, role_id, token) {
           Authorization: `Bearer ${token}`,
           "ngrok-skip-browser-warning": "any-value",
         },
-        body: JSON.stringify({ name, username, password, role_id }),
+        body: JSON.stringify({
+          name,
+          username,
+          password,
+          role_id: parseInt(role_id, 10),
+        }),
       }
     );
+
+    console.log({ name, username, password, role_id: parseInt(role_id, 10) });
 
     const data = await response.json();
 
@@ -71,7 +78,7 @@ export async function register(name, username, password, role_id, token) {
 export async function getTokenStatus(token) {
   try {
     const response = await fetch(
-      "https://8635-2404-8000-1024-7a86-15e5-1937-db5a-7ac8.ngrok-free.app/api/token-status",
+      "https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/token-status",
       {
         method: "GET",
         headers: {
@@ -98,10 +105,10 @@ export async function getTokenStatus(token) {
 
 // USERS FUNCTION
 
-export async function getAllUsers(token) {
+export async function getDataUser(id, token) {
   try {
     const response = await fetch(
-      "https://8635-2404-8000-1024-7a86-15e5-1937-db5a-7ac8.ngrok-free.app/api/users",
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/users/${id}`,
       {
         method: "GET",
         headers: {
@@ -125,10 +132,71 @@ export async function getAllUsers(token) {
   }
 }
 
+export async function getAllUsers(token) {
+  try {
+    const response = await fetch(
+      "https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/users",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-value",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Gagal mengambiil data pengguna");
+    }
+
+    return data;
+  } catch (error) {
+    // console.error("Gagal mengambil seluruh data pengguna: ", error.message);
+    throw error;
+  }
+}
+
+export async function updateUser(userId, name, username, role_id, token) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/update-user/${userId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-value",
+        },
+        body: JSON.stringify({
+          name,
+          username,
+          role_id: parseInt(role_id, 10),
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.message || `Gagal menghapus data pengguna dengan id: ${userId}`
+      );
+    }
+
+    return data;
+  } catch (error) {
+    // console.error("Gagal menghapus pengguna: ", error.message);
+    throw error;
+  }
+}
+
 export async function softDeleteUser(userId, token) {
   try {
     const response = await fetch(
-      `https://8635-2404-8000-1024-7a86-15e5-1937-db5a-7ac8.ngrok-free.app/api/delete-user/${userId}`,
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/delete-user/${userId}`,
       {
         method: "DELETE",
         headers: {
@@ -173,7 +241,7 @@ export async function createSupplier(
 ) {
   try {
     const response = await fetch(
-      `https://8635-2404-8000-1024-7a86-15e5-1937-db5a-7ac8.ngrok-free.app/api/create-supplier`,
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/create-supplier`,
       {
         method: "POST",
         headers: {
@@ -207,7 +275,7 @@ export async function createSupplier(
 export async function getAllSuppliers(token) {
   try {
     const response = await fetch(
-      `https://8635-2404-8000-1024-7a86-15e5-1937-db5a-7ac8.ngrok-free.app/api/suppliers`,
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/suppliers`,
       {
         method: "GET",
         headers: {
@@ -233,7 +301,7 @@ export async function getAllSuppliers(token) {
 export async function getSupplier(id, token) {
   try {
     const response = await fetch(
-      `https://8635-2404-8000-1024-7a86-15e5-1937-db5a-7ac8.ngrok-free.app/api/suppliers/${id}`,
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/suppliers/${id}`,
       {
         method: "GET",
         headers: {
@@ -270,7 +338,7 @@ export async function updateDataSupplier(
 ) {
   try {
     const response = await fetch(
-      `https://8635-2404-8000-1024-7a86-15e5-1937-db5a-7ac8.ngrok-free.app/api/update-supplier/${id}`,
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/update-supplier/${id}`,
       {
         method: "PUT",
         headers: {
@@ -304,7 +372,7 @@ export async function updateDataSupplier(
 export async function softDeleteSupplier(id, token) {
   try {
     const response = await fetch(
-      `https://8635-2404-8000-1024-7a86-15e5-1937-db5a-7ac8.ngrok-free.app/api/delete-supplier/${id}`,
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/delete-supplier/${id}`,
       {
         method: "DELETE",
         headers: {
