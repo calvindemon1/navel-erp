@@ -1,13 +1,7 @@
 import { createEffect, createSignal } from "solid-js";
 import { useNavigate } from "@solidjs/router";
 import MainLayout from "../layouts/MainLayout";
-import {
-  getAllColors,
-  getAllCustomers,
-  getUser,
-  softDeleteColor,
-  softDeleteCustomer,
-} from "../utils/auth";
+import { getAllColors, getUser, softDeleteColor } from "../utils/auth";
 import Swal from "sweetalert2";
 
 export default function ColorsList() {
@@ -57,7 +51,9 @@ export default function ColorsList() {
   const handleGetAllColors = async (tok) => {
     const getDataColors = await getAllColors(tok);
 
-    setColors(getDataColors);
+    if (getDataColors.status === 200) {
+      setColors(getDataColors.warna);
+    }
   };
 
   createEffect(() => {
