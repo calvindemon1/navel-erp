@@ -32,7 +32,8 @@ export default function MainLayout(props) {
       location.pathname.startsWith("/suppliers") ||
       location.pathname.startsWith("/colors") ||
       location.pathname.startsWith("/fabrics") ||
-      location.pathname.startsWith("/so-type");
+      location.pathname.startsWith("/so-type") ||
+      location.pathname.startsWith("/customer-type");
 
     if (inMaster) {
       setIsOpen(true);

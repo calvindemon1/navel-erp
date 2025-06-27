@@ -927,8 +927,6 @@ export async function getSOType(id, token) {
       }
     );
 
-    6;
-
     const data = response.json();
 
     if (!response.ok) {
@@ -1069,11 +1067,7 @@ export async function getCustomerType(id, token) {
       }
     );
 
-    6;
-
     const data = response.json();
-
-    console.log(id, token);
 
     if (!response.ok) {
       throw new Error(
@@ -1087,7 +1081,7 @@ export async function getCustomerType(id, token) {
   }
 }
 
-export async function updateDataCustomerType(token, id, kode, jenis) {
+export async function updateDataCustomerType(token, id, jenis) {
   try {
     const response = await fetch(
       `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/update-customer-type/${id}`,
@@ -1142,7 +1136,147 @@ export async function softDeleteCustomerType(id, token) {
   }
 }
 
-// CUSTOMER TYPE FUNCTION
+// #endregion CUSTOMER TYPE FUNCTION
+
+// #region CURRENCIES FUNCTION
+
+export async function createCurrencies(token, nama) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/create-currency`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-value",
+        },
+        body: JSON.stringify({ nama: nama }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Gagal membuat data jenis so");
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getAllCurrenciess(token) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/currencies`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-value",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Gagal mengambil data jenis so");
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getCurrencies(id, token) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/currencies/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-type",
+        },
+      }
+    );
+
+    const data = response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.message || `Gagal mengambil jenis so dengan id: ${id}`
+      );
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function updateDataCurrencies(token, id, nama) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/update-currency/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-value",
+        },
+        body: JSON.stringify({ nama: nama }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Gagal mengubah data jenis so");
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function softDeleteCurrencies(id, token) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/delete-currency/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-type",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.message || `Gagal menghapus data jenis so dengan id: ${id}`
+      );
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// #endregion CURRENCIES FUNCTION
 
 export function logout() {
   localStorage.removeItem("user");

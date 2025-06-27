@@ -18,6 +18,8 @@ import FabricsList from "./pages/FabricsList";
 import FabricForm from "./pages/FabricForm";
 import SOTypesList from "./pages/SOTypesList";
 import SOTypeForm from "./pages/SOTypeForm";
+import CustomerTypesList from "./pages/CustomerTypesList";
+import CustomerTypeForm from "./pages/CustomerTypeForm";
 
 function App() {
   return (
@@ -49,8 +51,8 @@ function App() {
       <Route path="/so-type" component={SOTypesList} />
       <Route path="/so-type/form" component={SOTypeForm} />
 
-      <Route path="/customer-type" component={FabricsList} />
-      <Route path="/customer-type/form" component={FabricForm} />
+      <Route path="/customer-type" component={CustomerTypesList} />
+      <Route path="/customer-type/form" component={CustomerTypeForm} />
     </Router>
   );
 }

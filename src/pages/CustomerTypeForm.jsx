@@ -2,17 +2,14 @@ import { createSignal, onMount } from "solid-js";
 import { useNavigate, useSearchParams } from "@solidjs/router";
 import MainLayout from "../layouts/MainLayout";
 import {
-  createColor,
-  createSOType,
-  getColor,
-  getSOType,
+  createCustomerType,
+  getCustomerType,
   getUser,
-  updateDataColor,
-  updateDataSOType,
+  updateDataCustomerType,
 } from "../utils/auth";
 import Swal from "sweetalert2";
 
-export default function SOTypeForm() {
+export default function CustomerTypeForm() {
   const [form, setForm] = createSignal({
     id: "",
     jenis: "",
@@ -24,10 +21,10 @@ export default function SOTypeForm() {
 
   onMount(async () => {
     if (isEdit) {
-      const soType = await getSOType(params.id, user?.token);
+      const customerType = await getCustomerType(params.id, user?.token);
       setForm({
         id: params.id,
-        jenis: soType.jenis,
+        jenis: customerType.jenis,
       });
     }
   });
@@ -37,28 +34,28 @@ export default function SOTypeForm() {
 
     try {
       if (isEdit) {
-        await updateDataSOType(user?.token, params.id, form().jenis);
+        await updateDataCustomerType(user?.token, params.id, form().jenis);
       } else {
-        await createSOType(user?.token, form().jenis);
+        await createCustomerType(user?.token, form().jenis);
       }
 
       Swal.fire({
         icon: "success",
         title: "Berhasil",
         text: isEdit
-          ? "Berhasil mengubah data jenis SO"
-          : "Berhasil mebuat jenis SO baru",
+          ? "Berhasil mengubah data jenis customer"
+          : "Berhasil mebuat jenis customer baru",
         confirmButtonColor: "#6496df",
         confirmButtonText: "OK",
-      }).then(() => navigate("/so-type"));
+      }).then(() => navigate("/customer-type"));
     } catch (error) {
       console.log(error);
       Swal.fire({
         icon: "error",
         title: "Gagal",
         text: isEdit
-          ? "Gagal mengubah data jenis SO"
-          : "Gagal membuat data jenis SO baru",
+          ? "Gagal mengubah data jenis customer"
+          : "Gagal membuat data jenis customer baru",
         confirmButtonColor: "#6496df",
         confirmButtonText: "OK",
       });
