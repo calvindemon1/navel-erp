@@ -440,7 +440,7 @@ export async function createCustomer(
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.message || "Gagal membuat data supplier");
+      throw new Error(data.message || "Gagal membuat data customer");
     }
 
     return data;
@@ -466,7 +466,7 @@ export async function getAllCustomers(token) {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.message || "Gagal mengambil data supplier");
+      throw new Error(data.message || "Gagal mengambil data customer");
     }
 
     return data;
@@ -493,7 +493,7 @@ export async function getCustomer(id, token) {
 
     if (!response.ok) {
       throw new Error(
-        data.message || `Gagal mengambil supplier dengan id: ${id}`
+        data.message || `Gagal mengambil customer dengan id: ${id}`
       );
     }
 
@@ -543,7 +543,7 @@ export async function updateDataCustomer(
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.message || "Gagal mengubah data supplier");
+      throw new Error(data.message || "Gagal mengubah data customer");
     }
 
     return data;
@@ -570,7 +570,7 @@ export async function softDeleteCustomer(id, token) {
 
     if (!response.ok) {
       throw new Error(
-        data.message || `Gagal menghapus data supplier dengan id: ${id}`
+        data.message || `Gagal menghapus data customer dengan id: ${id}`
       );
     }
 
@@ -582,7 +582,7 @@ export async function softDeleteCustomer(id, token) {
 
 // CUSTOMERS FUNCTION
 
-// CUSTOMERS FUNCTION
+// COLORS FUNCTION
 
 export async function createColor(token, kode, jenis) {
   try {
@@ -628,7 +628,7 @@ export async function getAllColors(token) {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.message || "Gagal mengambil data supplier");
+      throw new Error(data.message || "Gagal mengambil data warna");
     }
 
     return data;
@@ -654,9 +654,7 @@ export async function getColor(id, token) {
     const data = response.json();
 
     if (!response.ok) {
-      throw new Error(
-        data.message || `Gagal mengambil supplier dengan id: ${id}`
-      );
+      throw new Error(data.message || `Gagal mengambil warna dengan id: ${id}`);
     }
 
     return data;
@@ -683,7 +681,7 @@ export async function updateDataColor(token, id, kode, jenis) {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.message || "Gagal mengubah data supplier");
+      throw new Error(data.message || "Gagal mengubah data warna");
     }
 
     return data;
@@ -710,7 +708,7 @@ export async function softDeleteColor(id, token) {
 
     if (!response.ok) {
       throw new Error(
-        data.message || `Gagal menghapus data supplier dengan id: ${id}`
+        data.message || `Gagal menghapus data warna dengan id: ${id}`
       );
     }
 
@@ -720,7 +718,145 @@ export async function softDeleteColor(id, token) {
   }
 }
 
-// CUSTOMERS FUNCTION
+// COLORS FUNCTION
+
+// FABRICS FUNCTION
+
+export async function createFabric(token, kode, jenis) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/create-kain`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-value",
+        },
+        body: JSON.stringify({ kode: kode, jenis: jenis }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Gagal membuat data kain");
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getAllFabrics(token) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/kain`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-value",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Gagal mengambil data kain");
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getFabric(id, token) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/kain/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-type",
+        },
+      }
+    );
+
+    const data = response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || `Gagal mengambil kain dengan id: ${id}`);
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function updateDataFabric(token, id, kode, jenis) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/update-kain/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-value",
+        },
+        body: JSON.stringify({ kode: kode, jenis: jenis }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Gagal mengubah data kain");
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function softDeleteFabric(id, token) {
+  try {
+    const response = await fetch(
+      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/delete-kain/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "ngrok-skip-browser-warning": "any-type",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.message || `Gagal menghapus data kain dengan id: ${id}`
+      );
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// FABRICS FUNCTION
 
 export function logout() {
   localStorage.removeItem("user");
