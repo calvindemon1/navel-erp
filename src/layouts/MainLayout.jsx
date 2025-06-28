@@ -13,20 +13,16 @@ export default function MainLayout(props) {
     const interval = setInterval(async () => {
       try {
         const result = await getTokenStatus(tokUser?.token);
-        console.log("Message token:", result);
       } catch (error) {
         console.error("Token check failed:", error.message);
-        if (error.message === "Invalid or expired token.") {
-          handleLogout();
-        }
       }
-    }, 600000);
+    }, 60 * 60 * 1000);
 
+    // logic untuk buka sidebar
     const inMaster =
       location.pathname.startsWith("/dashboard") ||
       location.pathname.startsWith("/orders") ||
       location.pathname.startsWith("/transactions") ||
-      location.pathname.startsWith("/users") ||
       location.pathname.startsWith("/users") ||
       location.pathname.startsWith("/customers") ||
       location.pathname.startsWith("/suppliers") ||
@@ -40,7 +36,43 @@ export default function MainLayout(props) {
       setIsOpen(true);
     }
 
-    onCleanup(() => clearInterval(interval));
+    // idle detection
+    let logoutTimer = null;
+
+    function resetLogoutTimer() {
+      if (logoutTimer) clearTimeout(logoutTimer);
+      logoutTimer = setTimeout(() => {
+        console.log("User idle terlalu lama. Auto logout.");
+        handleLogout();
+      }, 30 * 60 * 1000); // 30 menit idle
+    }
+
+    // async function resetLogoutTimer() {
+    //   if (logoutTimer) clearTimeout(logoutTimer);
+
+    //   // refresh token jika perlu
+    //   await refreshTokenIfNeeded();
+
+    //   logoutTimer = setTimeout(() => {
+    //     console.log("User idle terlalu lama. Auto logout.");
+    //     handleLogout();
+    //   }, 30 * 60 * 1000);
+    // }
+
+    const events = ["mousemove", "click", "keydown", "scroll"];
+    events.forEach((event) => {
+      window.addEventListener(event, resetLogoutTimer);
+    });
+
+    resetLogoutTimer();
+
+    onCleanup(() => {
+      clearInterval(interval);
+      events.forEach((event) =>
+        window.removeEventListener(event, resetLogoutTimer)
+      );
+      clearTimeout(logoutTimer);
+    });
   });
 
   const handleLogout = () => {

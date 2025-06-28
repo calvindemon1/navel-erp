@@ -16,16 +16,13 @@ import { users } from "../data/users";
 
 export async function login(username, password) {
   try {
-    const response = await fetch(
-      "https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      }
-    );
+    const response = await fetch("https://nexttechenterprise.site/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    });
 
     const data = await response.json();
 
@@ -44,7 +41,7 @@ export async function login(username, password) {
 export async function register(name, username, password, role_id, token) {
   try {
     const response = await fetch(
-      "https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/register",
+      "https://nexttechenterprise.site/api/register",
       {
         method: "POST",
         headers: {
@@ -61,8 +58,6 @@ export async function register(name, username, password, role_id, token) {
       }
     );
 
-    console.log({ name, username, password, role_id: parseInt(role_id, 10) });
-
     const data = await response.json();
 
     if (!response.ok) {
@@ -78,7 +73,7 @@ export async function register(name, username, password, role_id, token) {
 export async function getTokenStatus(token) {
   try {
     const response = await fetch(
-      "https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/token-status",
+      "https://nexttechenterprise.site/api/token-status",
       {
         method: "GET",
         headers: {
@@ -108,7 +103,7 @@ export async function getTokenStatus(token) {
 export async function getDataUser(id, token) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/users/${id}`,
+      `https://nexttechenterprise.site/api/users/${id}`,
       {
         method: "GET",
         headers: {
@@ -134,17 +129,14 @@ export async function getDataUser(id, token) {
 
 export async function getAllUsers(token) {
   try {
-    const response = await fetch(
-      "https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/users",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-          "ngrok-skip-browser-warning": "any-value",
-        },
-      }
-    );
+    const response = await fetch("https://nexttechenterprise.site/api/users", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+        "ngrok-skip-browser-warning": "any-value",
+      },
+    });
 
     const data = await response.json();
 
@@ -162,7 +154,7 @@ export async function getAllUsers(token) {
 export async function updateUser(userId, name, username, role_id, token) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/update-user/${userId}`,
+      `https://nexttechenterprise.site/api/update-user/${userId}`,
       {
         method: "PUT",
         headers: {
@@ -196,7 +188,7 @@ export async function updateUser(userId, name, username, role_id, token) {
 export async function softDeleteUser(userId, token) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/delete-user/${userId}`,
+      `https://nexttechenterprise.site/api/delete-user/${userId}`,
       {
         method: "DELETE",
         headers: {
@@ -241,7 +233,7 @@ export async function createSupplier(
 ) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/create-supplier`,
+      `https://nexttechenterprise.site/api/create-supplier`,
       {
         method: "POST",
         headers: {
@@ -275,7 +267,7 @@ export async function createSupplier(
 export async function getAllSuppliers(token) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/suppliers`,
+      `https://nexttechenterprise.site/api/suppliers`,
       {
         method: "GET",
         headers: {
@@ -301,7 +293,7 @@ export async function getAllSuppliers(token) {
 export async function getSupplier(id, token) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/suppliers/${id}`,
+      `https://nexttechenterprise.site/api/suppliers/${id}`,
       {
         method: "GET",
         headers: {
@@ -338,7 +330,7 @@ export async function updateDataSupplier(
 ) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/update-supplier/${id}`,
+      `https://nexttechenterprise.site/api/update-supplier/${id}`,
       {
         method: "PUT",
         headers: {
@@ -372,7 +364,7 @@ export async function updateDataSupplier(
 export async function softDeleteSupplier(id, token) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/delete-supplier/${id}`,
+      `https://nexttechenterprise.site/api/delete-supplier/${id}`,
       {
         method: "DELETE",
         headers: {
@@ -415,7 +407,7 @@ export async function createCustomer(
 ) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/create-customer`,
+      `https://nexttechenterprise.site/api/create-customer`,
       {
         method: "POST",
         headers: {
@@ -452,7 +444,7 @@ export async function createCustomer(
 export async function getAllCustomers(token) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/customers`,
+      `https://nexttechenterprise.site/api/customers`,
       {
         method: "GET",
         headers: {
@@ -478,7 +470,7 @@ export async function getAllCustomers(token) {
 export async function getCustomer(id, token) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/customers/${id}`,
+      `https://nexttechenterprise.site/api/customers/${id}`,
       {
         method: "GET",
         headers: {
@@ -518,7 +510,7 @@ export async function updateDataCustomer(
 ) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/update-customer/${id}`,
+      `https://nexttechenterprise.site/api/update-customer/${id}`,
       {
         method: "PUT",
         headers: {
@@ -555,7 +547,7 @@ export async function updateDataCustomer(
 export async function softDeleteCustomer(id, token) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/delete-customer/${id}`,
+      `https://nexttechenterprise.site/api/delete-customer/${id}`,
       {
         method: "DELETE",
         headers: {
@@ -587,7 +579,7 @@ export async function softDeleteCustomer(id, token) {
 export async function createColor(token, kode, jenis) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/create-warna`,
+      `https://nexttechenterprise.site/api/create-warna`,
       {
         method: "POST",
         headers: {
@@ -613,17 +605,14 @@ export async function createColor(token, kode, jenis) {
 
 export async function getAllColors(token) {
   try {
-    const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/warna`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-          "ngrok-skip-browser-warning": "any-value",
-        },
-      }
-    );
+    const response = await fetch(`https://nexttechenterprise.site/api/warna`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+        "ngrok-skip-browser-warning": "any-value",
+      },
+    });
 
     const data = await response.json();
 
@@ -640,7 +629,7 @@ export async function getAllColors(token) {
 export async function getColor(id, token) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/warna/${id}`,
+      `https://nexttechenterprise.site/api/warna/${id}`,
       {
         method: "GET",
         headers: {
@@ -666,7 +655,7 @@ export async function getColor(id, token) {
 export async function updateDataColor(token, id, kode, jenis) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/update-warna/${id}`,
+      `https://nexttechenterprise.site/api/update-warna/${id}`,
       {
         method: "PUT",
         headers: {
@@ -693,7 +682,7 @@ export async function updateDataColor(token, id, kode, jenis) {
 export async function softDeleteColor(id, token) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/delete-warna/${id}`,
+      `https://nexttechenterprise.site/api/delete-warna/${id}`,
       {
         method: "DELETE",
         headers: {
@@ -725,7 +714,7 @@ export async function softDeleteColor(id, token) {
 export async function createFabric(token, kode, jenis) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/create-kain`,
+      `https://nexttechenterprise.site/api/create-kain`,
       {
         method: "POST",
         headers: {
@@ -751,17 +740,14 @@ export async function createFabric(token, kode, jenis) {
 
 export async function getAllFabrics(token) {
   try {
-    const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/kain`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-          "ngrok-skip-browser-warning": "any-value",
-        },
-      }
-    );
+    const response = await fetch(`https://nexttechenterprise.site/api/kain`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+        "ngrok-skip-browser-warning": "any-value",
+      },
+    });
 
     const data = await response.json();
 
@@ -778,7 +764,7 @@ export async function getAllFabrics(token) {
 export async function getFabric(id, token) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/kain/${id}`,
+      `https://nexttechenterprise.site/api/kain/${id}`,
       {
         method: "GET",
         headers: {
@@ -804,7 +790,7 @@ export async function getFabric(id, token) {
 export async function updateDataFabric(token, id, kode, jenis) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/update-kain/${id}`,
+      `https://nexttechenterprise.site/api/update-kain/${id}`,
       {
         method: "PUT",
         headers: {
@@ -831,7 +817,7 @@ export async function updateDataFabric(token, id, kode, jenis) {
 export async function softDeleteFabric(id, token) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/delete-kain/${id}`,
+      `https://nexttechenterprise.site/api/delete-kain/${id}`,
       {
         method: "DELETE",
         headers: {
@@ -863,7 +849,7 @@ export async function softDeleteFabric(id, token) {
 export async function createSOType(token, jenis) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/create-jenis-so`,
+      `https://nexttechenterprise.site/api/create-jenis-so`,
       {
         method: "POST",
         headers: {
@@ -890,7 +876,7 @@ export async function createSOType(token, jenis) {
 export async function getAllSOTypes(token) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/jenis-sos`,
+      `https://nexttechenterprise.site/api/jenis-sos`,
       {
         method: "GET",
         headers: {
@@ -916,7 +902,7 @@ export async function getAllSOTypes(token) {
 export async function getSOType(id, token) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/jenis-so/${id}`,
+      `https://nexttechenterprise.site/api/jenis-so/${id}`,
       {
         method: "GET",
         headers: {
@@ -944,7 +930,7 @@ export async function getSOType(id, token) {
 export async function updateDataSOType(token, id, jenis) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/update-jenis-so/${id}`,
+      `https://nexttechenterprise.site/api/update-jenis-so/${id}`,
       {
         method: "PUT",
         headers: {
@@ -971,7 +957,7 @@ export async function updateDataSOType(token, id, jenis) {
 export async function softDeleteSOType(id, token) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/delete-jenis-so/${id}`,
+      `https://nexttechenterprise.site/api/delete-jenis-so/${id}`,
       {
         method: "DELETE",
         headers: {
@@ -1003,7 +989,7 @@ export async function softDeleteSOType(id, token) {
 export async function createCustomerType(token, jenis) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/create-customer-type`,
+      `https://nexttechenterprise.site/api/create-customer-type`,
       {
         method: "POST",
         headers: {
@@ -1030,7 +1016,7 @@ export async function createCustomerType(token, jenis) {
 export async function getAllCustomerTypes(token) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/customer-types`,
+      `https://nexttechenterprise.site/api/customer-types`,
       {
         method: "GET",
         headers: {
@@ -1056,7 +1042,7 @@ export async function getAllCustomerTypes(token) {
 export async function getCustomerType(id, token) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/customer-types/${id}`,
+      `https://nexttechenterprise.site/api/customer-types/${id}`,
       {
         method: "GET",
         headers: {
@@ -1084,7 +1070,7 @@ export async function getCustomerType(id, token) {
 export async function updateDataCustomerType(token, id, jenis) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/update-customer-type/${id}`,
+      `https://nexttechenterprise.site/api/update-customer-type/${id}`,
       {
         method: "PUT",
         headers: {
@@ -1111,7 +1097,7 @@ export async function updateDataCustomerType(token, id, jenis) {
 export async function softDeleteCustomerType(id, token) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/delete-customer-type/${id}`,
+      `https://nexttechenterprise.site/api/delete-customer-type/${id}`,
       {
         method: "DELETE",
         headers: {
@@ -1143,7 +1129,7 @@ export async function softDeleteCustomerType(id, token) {
 export async function createCurrencies(token, name) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/create-currency`,
+      `https://nexttechenterprise.site/api/create-currency`,
       {
         method: "POST",
         headers: {
@@ -1170,7 +1156,7 @@ export async function createCurrencies(token, name) {
 export async function getAllCurrenciess(token) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/currencies`,
+      `https://nexttechenterprise.site/api/currencies`,
       {
         method: "GET",
         headers: {
@@ -1196,7 +1182,7 @@ export async function getAllCurrenciess(token) {
 export async function getCurrencies(id, token) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/currencies/${id}`,
+      `https://nexttechenterprise.site/api/currencies/${id}`,
       {
         method: "GET",
         headers: {
@@ -1224,7 +1210,7 @@ export async function getCurrencies(id, token) {
 export async function updateDataCurrencies(token, id, name) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/update-currency/${id}`,
+      `https://nexttechenterprise.site/api/update-currency/${id}`,
       {
         method: "PUT",
         headers: {
@@ -1251,7 +1237,7 @@ export async function updateDataCurrencies(token, id, name) {
 export async function softDeleteCurrencies(id, token) {
   try {
     const response = await fetch(
-      `https://477c-2001-448a-304f-6ffa-7ca4-1549-d460-bff0.ngrok-free.app/api/delete-currency/${id}`,
+      `https://nexttechenterprise.site/api/delete-currency/${id}`,
       {
         method: "DELETE",
         headers: {
